@@ -1,0 +1,40 @@
+`timescale 1ns/1ps
+
+module decoder_3x8_tb;
+
+reg [2:0] A;
+reg Enable;
+wire [7:0] Y;
+
+decoder_3x8 uut (
+    .A(A),
+    .Enable(Enable),
+    .Y(Y)
+);
+
+initial begin
+
+    $display("Time\tEnable\tA\tY");
+    $monitor("%0t\t%b\t%b\t%b", $time, Enable, A, Y);
+
+    Enable = 0;
+    A = 3'b000;
+
+    #10 Enable = 1;
+
+    #10 A = 3'b000;
+    #10 A = 3'b001;
+    #10 A = 3'b010;
+    #10 A = 3'b011;
+    #10 A = 3'b100;
+    #10 A = 3'b101;
+    #10 A = 3'b110;
+    #10 A = 3'b111;
+
+    #10 Enable = 0;
+
+    #20 $finish;
+
+end
+
+endmodule
